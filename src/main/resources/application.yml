@@ -1,0 +1,84 @@
+#环境配置
+server:
+  port: 8145
+  servlet:
+    context-path: /qian
+
+#spring配置
+spring:
+  autoconfigure:
+    # 为了某些版本的springboot  @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class}) 无法生效
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  datasource: #数据库链接相关配置
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      datasource:
+        master:
+          url: jdbc:mysql://129.211.189.152:3306/cpzs?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+          username: root
+          password: wn123456
+          driver-class-name: com.mysql.jdbc.Driver
+        # db1:
+          # url:
+          # username:
+          # password:
+          # driver-class-name:
+      druid: #以下是全局默认值，可以全局更改
+        #监控统计拦截的filters
+        filters: stat
+        #配置初始化大小/最小/最大
+        initial-size: 1
+        min-idle: 1
+        max-active: 20
+        #获取连接等待超时时间
+        max-wait: 60000
+        #间隔多久进行一次检测，检测需要关闭的空闲连接
+        time-between-eviction-runs-millis: 60000
+        #一个连接在池中最小生存的时间
+        min-evictable-idle-time-millis: 300000
+        validation-query: select 'x'
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+        pool-prepared-statements: false
+        max-pool-prepared-statement-per-connection-size: 20
+        stat:
+          merge-sql: true
+          log-slow-sql: true
+          slow-sql-millis: 2000
+
+  # redis 配置
+  redis:
+    host: 129.211.189.152 # 地址
+    port: 6379  # 端口，默认为6379
+    password: wn123456  # 密码
+    database: 3 # 采用数据库、默认0
+    lettuce:
+      pool:
+        min-idle: 0 # 连接池中的最小空闲连接
+        max-idle: 8 # 连接池中的最大空闲连接
+        max-active: 8 # 连接池的最大数据库连接数
+        max-wait: -1m  # 连接池最大阻塞等待时间（使用负值表示没有限制）
+    timeout: 10s  # 连接超时时间
+
+mybatis-plus:
+  #实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package: com.wn.qian.modules.**.model
+  mapper-locations: com/wn/qian/modules/**/mapper/*Mapper.xml
+  check-config-location: true
+  configuration:
+    #是否开启自动驼峰命名规则（camel case）映射
+    map-underscore-to-camel-case: true
+    #全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存
+    cache-enabled: false
+    call-setters-on-nulls: true
+    #配置JdbcTypeForNull, oracle数据库必须配置
+    jdbc-type-for-null: 'null'
+    #MyBatis 自动映射时未知列或未知属性处理策略 NONE：不做任何处理 (默认值), WARNING：以日志的形式打印相关警告信息, FAILING：当作映射失败处理，并抛出异常和详细信息
+    auto-mapping-unknown-column-behavior: warning
+
+logging:
+  level:
+    com.wn: debug
+    org.springframework: warn
