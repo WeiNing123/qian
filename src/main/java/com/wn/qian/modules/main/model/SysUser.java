@@ -19,9 +19,6 @@ public class SysUser extends BaseModel {
     //密码
     private String password;
 
-    //部门id
-    private Integer departmentId;
-
     //联系方式
     private String phone;
 
@@ -33,7 +30,4 @@ public class SysUser extends BaseModel {
 
     //添加时间
     private Date addTime;
-
-    //用户类型
-    private String type;
 }

@@ -22,7 +22,7 @@ public class AuthController extends BaseController {
 
     @PostMapping("/login")
     public R login(@RequestBody SysUser user) throws Exception{
-        user.setPassword("{MD5}" + MD5.BASE64AndMD5(MD5.Md5(user.getPassword())));
+        user.setPassword("{MD5}" + MD5.BASE64AndMD5(user.getPassword()));
         SysUser info = sysUserService.getOne(sysUserService.getQueryWrapper(user));
         if (info == null) return R.error(301, "用户名或密码错误！");
         getRedisUtil().set("user_code", info.getUserCode());

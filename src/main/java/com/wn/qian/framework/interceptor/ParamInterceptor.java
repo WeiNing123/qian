@@ -5,6 +5,7 @@ import com.wn.utils.CryptoUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -15,8 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 @Component
@@ -32,13 +31,13 @@ public class ParamInterceptor implements HandlerInterceptor {
         if (PathVerifyConfig.laissezPasser(request.getRequestURI()))
             return true;
 
-        Map<String, Object> map = new HashMap<>();
+        JSONObject json = new JSONObject();
         String token = request.getHeader("Access-Token");
 
         if (token == null){
-            map.put("code", 302);
-            map.put("msg", "用户信息验证失败,无效token");
-            returnJson(response, map.toString());
+            json.put("code", 302);
+            json.put("msg", "用户信息验证失败,无效token");
+            returnJson(response, json.toString());
             return false;
         }
 
@@ -47,9 +46,9 @@ public class ParamInterceptor implements HandlerInterceptor {
         long sjc = new Date().getTime()/1000 - time;
 
         if(sjc > 7200){
-            map.put("code", 303);
-            map.put("msg", "登录超时");
-            returnJson(response, map.toString());
+            json.put("code", 303);
+            json.put("msg", "登录超时");
+            returnJson(response, json.toString());
             return false;
         }
 

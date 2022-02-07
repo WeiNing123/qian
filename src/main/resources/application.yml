@@ -1,6 +1,6 @@
 #环境配置
 server:
-  port: 8145
+  port: 8146
   servlet:
     context-path: /qian
 
