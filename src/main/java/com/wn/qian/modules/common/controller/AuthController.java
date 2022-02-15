@@ -42,4 +42,17 @@ public class AuthController extends BaseController {
     public R logout() {
         return R.ok();
     }
+
+    @PostMapping("/modifyPassword")
+    public R modifyPassword(@RequestBody SysUser user) throws Exception{
+        user.setPassword("{MD5}" + MD5.BASE64AndMD5(MD5.Md5(user.getPassword())));
+        SysUser info = sysUserService.getOne(sysUserService.getQueryWrapper(user));
+        if (info == null) {
+            return R.ok().put("state", 0);
+        } else {
+            user.setPassword("{MD5}" + MD5.BASE64AndMD5(MD5.Md5(user.getNewPassword())));
+            sysUserService.updateById(user);
+            return R.ok().put("state", 1);
+        }
+    }
 }
