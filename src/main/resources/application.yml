@@ -6,6 +6,8 @@ server:
 
 #spring配置
 spring:
+  profiles:
+    active: dev
   autoconfigure:
     # 为了某些版本的springboot  @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class}) 无法生效
     exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure

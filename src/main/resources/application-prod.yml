@@ -1,0 +1,5 @@
+file:
+  # 文件上传目录
+  uploadFolder: /opt/local/upfile/qian/
+  # 对外访问的资源路径
+  staticAccessPath: /upfile/qian/**

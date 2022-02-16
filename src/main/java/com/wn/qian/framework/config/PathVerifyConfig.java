@@ -12,6 +12,8 @@ public class PathVerifyConfig {
     private static List<String> release(){
         List<String>url = new ArrayList<>();
         url.add("/auth/");
+        url.add("/main/materials/upload");
+        url.add("/upfile/");
         return url;
     }
 

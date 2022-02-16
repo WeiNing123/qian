@@ -14,6 +14,8 @@ public class MyDatabase extends BaseModel {
     private String ip;
     //端口
     private String port;
+    //用户名
+    private String userName;
     //密码
     private String password;
     //备注
