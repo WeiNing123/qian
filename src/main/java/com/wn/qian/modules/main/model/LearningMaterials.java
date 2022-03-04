@@ -16,4 +16,6 @@ public class LearningMaterials extends BaseModel {
     private String category;
     //类型 1上传文件 2外部路径
     private Integer type;
+    //创建人
+    private String creater;
 }

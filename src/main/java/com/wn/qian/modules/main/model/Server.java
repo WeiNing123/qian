@@ -18,4 +18,6 @@ public class Server extends BaseModel {
     private String password;
     //备注
     private String remark;
+    //创建人
+    private String creater;
 }

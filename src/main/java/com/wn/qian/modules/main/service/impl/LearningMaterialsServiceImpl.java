@@ -12,7 +12,7 @@ public class LearningMaterialsServiceImpl extends ServiceImpl<LearningMaterialsM
     @Override
     public QueryWrapper<LearningMaterials> getQueryWrapper(LearningMaterials materials) {
         QueryWrapper<LearningMaterials> wrapper = new QueryWrapper<>();
-        wrapper.eq("category", materials.getCategory());
+        wrapper.eq("creater", materials.getCreater()).eq("category", materials.getCategory());
         wrapper.orderByAsc("id");
         return wrapper;
     }

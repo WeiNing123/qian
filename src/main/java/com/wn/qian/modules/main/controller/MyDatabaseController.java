@@ -22,6 +22,7 @@ public class MyDatabaseController extends BaseController {
 
     @PostMapping("/list")
     public IPage<MyDatabase> list(@RequestBody MyDatabase database){
+        database.setCreater((String) getRedisUtil().get("user_code"));
         Page<MyDatabase> page = new Page<>(database.getPage(), database.getLimit());
         IPage<MyDatabase> result = myDatabaseService.page(page, myDatabaseService.getQueryWrapper(database));
         for (MyDatabase item : result.getRecords()) {
@@ -32,6 +33,7 @@ public class MyDatabaseController extends BaseController {
 
     @PostMapping("/add")
     public R add(@RequestBody MyDatabase database){
+        database.setCreater((String) getRedisUtil().get("user_code"));
         database.setPassword(CryptoUtil.encodeSrc(database.getPassword()));
         myDatabaseService.save(database);
         return R.ok();

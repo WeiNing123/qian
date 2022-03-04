@@ -22,6 +22,7 @@ public class ServerController extends BaseController {
 
     @PostMapping("/list")
     public IPage<Server> list(@RequestBody Server server){
+        server.setCreater((String) getRedisUtil().get("user_code"));
         Page<Server> page = new Page<>(server.getPage(), server.getLimit());
         IPage<Server> result = serverService.page(page, serverService.getQueryWrapper(server));
         for (Server item : result.getRecords()) {
@@ -32,6 +33,7 @@ public class ServerController extends BaseController {
 
     @PostMapping("/add")
     public R add(@RequestBody Server server){
+        server.setCreater((String) getRedisUtil().get("user_code"));
         server.setPassword(CryptoUtil.encodeSrc(server.getPassword()));
         serverService.save(server);
         return R.ok();

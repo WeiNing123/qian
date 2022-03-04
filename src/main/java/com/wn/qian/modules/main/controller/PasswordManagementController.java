@@ -22,6 +22,7 @@ public class PasswordManagementController extends BaseController {
 
     @PostMapping("/list")
     public IPage<PasswordManagement> list(@RequestBody PasswordManagement management){
+        management.setCreater((String) getRedisUtil().get("user_code"));
         Page<PasswordManagement> page = new Page<>(management.getPage(), management.getLimit());
         IPage<PasswordManagement> result = passwordManagementService.page(page, passwordManagementService.getQueryWrapper(management));
         for (PasswordManagement pm : result.getRecords()) {
@@ -32,6 +33,7 @@ public class PasswordManagementController extends BaseController {
 
     @PostMapping("/add")
     public R add(@RequestBody PasswordManagement management){
+        management.setCreater((String) getRedisUtil().get("user_code"));
         management.setPassword(CryptoUtil.encodeSrc(management.getPassword()));
         passwordManagementService.save(management);
         return R.ok();

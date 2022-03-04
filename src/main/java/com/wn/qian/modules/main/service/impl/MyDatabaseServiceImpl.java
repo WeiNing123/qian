@@ -12,7 +12,7 @@ public class MyDatabaseServiceImpl extends ServiceImpl<MyDatabaseMapper, MyDatab
     @Override
     public QueryWrapper<MyDatabase> getQueryWrapper(MyDatabase database) {
         QueryWrapper<MyDatabase> wrapper = new QueryWrapper<>();
-        wrapper.orderByAsc("id");
+        wrapper.eq("creater", database.getCreater()).orderByAsc("id");
         return wrapper;
     }
 }

@@ -26,12 +26,14 @@ public class LearningMaterialsController extends BaseController {
 
     @PostMapping("/list")
     public IPage<LearningMaterials> list(@RequestBody LearningMaterials learningMaterials){
+        learningMaterials.setCreater((String) getRedisUtil().get("user_code"));
         Page<LearningMaterials> page = new Page<>(learningMaterials.getPage(), learningMaterials.getLimit());
         return learningMaterialsService.page(page, learningMaterialsService.getQueryWrapper(learningMaterials));
     }
 
     @PostMapping("/add")
     public R add(@RequestBody LearningMaterials learningMaterials){
+        learningMaterials.setCreater((String) getRedisUtil().get("user_code"));
         learningMaterialsService.save(learningMaterials);
         return R.ok();
     }
