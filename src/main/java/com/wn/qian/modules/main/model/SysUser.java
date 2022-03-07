@@ -29,6 +29,9 @@ public class SysUser extends BaseModel {
     //邮箱
     private String mail;
 
+    //角色id
+    private Integer roleId;
+
     //添加时间
     private Date addTime;
 

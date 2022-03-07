@@ -97,10 +97,18 @@
 
     <build>
         <resources>
+            <!--设置对应生成的xml文件路径-->
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <!--设置自己目录下的配置文件-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
                 </includes>
             </resource>
         </resources>
@@ -108,6 +116,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.5</version>
             </plugin>
             <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
