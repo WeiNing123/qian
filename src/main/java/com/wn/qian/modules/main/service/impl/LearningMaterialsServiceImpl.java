@@ -13,6 +13,9 @@ public class LearningMaterialsServiceImpl extends ServiceImpl<LearningMaterialsM
     public QueryWrapper<LearningMaterials> getQueryWrapper(LearningMaterials materials) {
         QueryWrapper<LearningMaterials> wrapper = new QueryWrapper<>();
         wrapper.eq("creater", materials.getCreater()).eq("category", materials.getCategory());
+        if (materials.getTitle()!=null && !materials.getTitle().equals("")) {
+            wrapper.like("title", materials.getTitle());
+        }
         wrapper.orderByAsc("id");
         return wrapper;
     }

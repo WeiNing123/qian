@@ -13,7 +13,11 @@ public class PasswordManagementServiceImpl extends ServiceImpl<PasswordManagemen
     @Override
     public QueryWrapper<PasswordManagement> getQueryWrapper(PasswordManagement management) {
         QueryWrapper<PasswordManagement> wrapper = new QueryWrapper<>();
-        wrapper.eq("creater", management.getCreater()).orderByAsc("id");
+        wrapper.eq("creater", management.getCreater());
+        if (management.getLabel()!=null && !management.getLabel().equals("")) {
+            wrapper.like("label", management.getLabel());
+        }
+        wrapper.orderByAsc("id");
         return wrapper;
     }
 }

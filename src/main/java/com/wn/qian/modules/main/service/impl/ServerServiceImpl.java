@@ -12,7 +12,11 @@ public class ServerServiceImpl extends ServiceImpl<ServerMapper, Server> impleme
     @Override
     public QueryWrapper<Server> getQueryWrapper(Server server) {
         QueryWrapper<Server> wrapper = new QueryWrapper<>();
-        wrapper.eq("creater", server.getCreater()).orderByAsc("id");
+        wrapper.eq("creater", server.getCreater());
+        if (server.getLabel()!=null && !server.getLabel().equals("")) {
+            wrapper.like("label", server.getLabel());
+        }
+        wrapper.orderByAsc("id");
         return wrapper;
     }
 }
