@@ -37,4 +37,6 @@ public class SysUser extends BaseModel {
 
     @TableField(exist = false)
     private String newPassword;
+    @TableField(exist = false)
+    private String securityCode;
 }
